@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{text-align: center;}
+    </style>
+</head>
+<body>
+<form>
+    <label>AGE:
+        <input type="text" name="age"/>
+    </label>
+    <label>NAME:
+        <input type="text" name="name"/>
+    </label>
+    <input type="submit"/>
+    <span th:text="${error}"/>
+</form>
+<div th:each="user: ${users}">
+    <span th:text="${user.getAge()}"/>
+    <span th:text="${user.getName()}"/>
+</div>
+</body>
+</html>
