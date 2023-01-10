@@ -5,22 +5,117 @@
     <title>Title</title>
     <style>
         body{text-align: center;}
+        table{margin-right: auto;
+        margin-left: 50px;}
+        a{
+            display: inline-block;
+            width: 40px;
+            height: 15px;
+            cursor: pointer;
+            background-color: darkslategrey;
+            color: white;
+            padding: 5px 10px;
+            margin: 0 0;
+            border: black;
+            border-block-color: black;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .form1 {
+            display: flex;
+            flex-direction: column;
+            width: 330px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 20px;
+        }
+
+        .form1 label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .form1 input[type="text"] {
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 20px;
+        }
+
+        .form1 input[type="submit"] {
+            width: 100%;
+            background-color: darkslategrey;
+            color: white;
+            padding: 14px 20px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form1 input[type="submit"]:hover {
+            background-color: darkslategrey;
+        }
+        .button1{
+            background-color: darkslategrey;
+            color: white;
+            padding: 14px 20px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form2 button[type="submit"]{
+            display: inline-block;
+            width: 60px;
+            height: 25px;
+            cursor: pointer;
+            background-color: #4f2f2f;
+            color: white;
+            padding: 5px 10px;
+            margin: 0 0;
+            border: black;
+            border-block-color: black;
+            border-radius: 4px;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-<form>
+<form method="post" class="form1" style="float: left; width: 20%; margin-left: 50px; margin-right: 50px; margin-top: 50px">
     <label>AGE:
         <input type="text" name="age"/>
     </label>
     <label>NAME:
         <input type="text" name="name"/>
     </label>
-    <input type="submit"/>
+    <input type="submit" value="add user"/>
     <span th:text="${error}"/>
 </form>
-<div th:each="user: ${users}">
-    <span th:text="${user.getAge()}"/>
-    <span th:text="${user.getName()}"/>
-</div>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td ><a th:text="${user.getId()}" th:href="${user.getId()}"/></td>
+        <td ><a th:text="${user.getName()}" th:href="${user.getId()}" style="width: 65px"/></td>
+        <td ><a th:text="${user.getAge()}" th:href="${user.getId()}"/></td>
+        <td>
+            <form action="/delete" method="post" class="form2">
+                <input type="hidden" name="id" th:value="${user.getId()}"/>
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<button onclick="location.href='/calculator'" class="button1">calculator</button>
+<br/>
+<button onclick="location.href='/todos'" class="button1">todos</button>
 </body>
 </html>

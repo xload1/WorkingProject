@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body{text-align: center;}
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 330px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 20px;
+    }
+
+    form label {
+      font-weight: bold;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    form input[type="text"] {
+      width: 80%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 12px;
+      margin-bottom: 20px;
+    }
+    form input[type="password"] {
+      width: 80%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 12px;
+      margin-bottom: 20px;
+    }
+    form input[type="submit"] {
+      width: 100%;
+      background-color: darkslategrey;
+      color: white;
+      padding: 14px 20px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    form input[type="submit"]:hover {
+      background-color: darkslategrey;
+    }
+    .button1{
+      background-color: darkslategrey;
+      color: white;
+      padding: 14px 20px;
+      margin-bottom: 20px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<form method="post" action="/todos/register/check">
+  <label>LOGIN
+    <input type="text" name="login">
+  </label>
+  <label>PASSWORD
+    <input type="password" name="password">
+  </label>
+  <input type="submit" value="register">
+</form>
+<p th:text="${loginError}"/>
+<button onclick="location.href='/todos'" class="button1">BACK</button>
+</body>
+</html>

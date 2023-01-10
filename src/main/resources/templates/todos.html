@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{text-align: center;}
+        .button1{
+            background-color: darkslategrey;
+            color: white;
+            padding: 14px 20px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<p th:text="${currentDate}"/>
+<button onclick="location.href='/todos/login'" class="button1">login</button>
+<button onclick="location.href='/todos/register'" class="button1">register</button>
+<p th:text=" 'Logged in: ' +${loggedIn}"/>
+<p th:text="${loginError}"/>
+<form action="/todos/add" method="post">
+    <label>Todo text:
+        <input type="text" name="todo-text">
+    </label>
+    <label>Expiry date:
+        <input type="date" name="todo-date">
+    </label>
+    <input type="submit" value="add">
+</form>
+<div th:each="pair:${todosList}" >
+    <form method="post" action="todos/delete">
+        <span th:text="${pair.getFirst()} + ' | Expiry date:'+ ${pair.getSecond()}"/>
+        <input type="hidden" th:value="${pair.getFirst()}+'%d%'+${pair.getSecond()}+'%s%'" name="currentTodoText">
+        <button type="submit">done</button>
+    </form>
+    <br/>
+</div>
+</body>
+</html>

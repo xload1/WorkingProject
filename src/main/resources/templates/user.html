@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    body{
+      text-align: center;
+    }
+    button{
+        display: inline-block;
+        width: 60px;
+        height: 25px;
+        cursor: pointer;
+        background-color: darkslategrey;
+        color: white;
+        padding: 5px 10px;
+        margin: 0 0;
+        border: black;
+        border-block-color: black;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+<h1 th:text="${oneUser}"/>
+<br/>
+<button onclick="location.href='/'" style="background-color: darkslategrey">BACK</button>
+</body>
+</html>

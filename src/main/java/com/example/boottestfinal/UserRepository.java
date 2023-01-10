@@ -1,7 +1,8 @@
-package com.example.boottestfinal.enities;
+package com.example.boottestfinal;
 
+import com.example.boottestfinal.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.core.support.DefaultCrudMethods;
+
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 }

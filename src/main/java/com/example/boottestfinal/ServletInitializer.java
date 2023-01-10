@@ -1,6 +1,5 @@
-package com.example.boottestfinal.config;
+package com.example.boottestfinal;
 
-import com.example.boottestfinal.config.BootTestFinalApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 

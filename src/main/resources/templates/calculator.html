@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{text-align: center;}
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            width: 300px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 20px;
+        }
+
+        form input[type="text"] {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 20px;
+        }
+
+        form input[type="button"] {
+            width: 25%;
+            background-color: darkslategrey;
+            color: white;
+            padding: 14px 20px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form input[type="button"]:hover {
+            background-color: #45a049;
+        }
+        button{
+            width: 25%;
+            background-color: darkslategrey;
+            color: white;
+            padding: 14px 20px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <input type="text" name="input" th:value="${input}">
+    <input type="button" value="1" onclick="addToRequest('1')">
+    <input type="button" value="2" onclick="addToRequest('2')">
+    <input type="button" value="3" onclick="addToRequest('3')">
+    <input type="button" value="4" onclick="addToRequest('4')">
+    <input type="button" value="5" onclick="addToRequest('5')">
+    <input type="button" value="6" onclick="addToRequest('6')">
+    <input type="button" value="7" onclick="addToRequest('7')">
+    <input type="button" value="8" onclick="addToRequest('8')">
+    <input type="button" value="9" onclick="addToRequest('9')">
+    <input type="button" value="0" onclick="addToRequest('0')">
+    <input type="button" value="+" onclick="addToRequest('%2B')">
+    <input type="button" value="-" onclick="addToRequest('%2D')">
+    <input type="button" value="*" onclick="addToRequest('%2A')">
+    <input type="button" value="/" onclick="addToRequest('%2F')">
+    <input type="button" value="CLEAR" onclick="location.href='/calculator?input='">
+</form>
+<h1 th:text=" ' = ' +  ${result}"/>
+<h1 th:text="${error}"/>
+<button onclick="location.href='/'">BACK</button>
+<script>
+    function addToRequest(parameter) {
+        const currentUrl = window.location.href;
+        window.location = currentUrl + parameter;
+    }
+</script>
+</body>
+</html>
