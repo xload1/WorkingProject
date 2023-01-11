@@ -169,24 +169,15 @@ public class HelloController {
     @GetMapping("/todos")
     public String todos(Model model, HttpServletRequest request, HttpSession session){
         model.addAttribute("currentDate", new Date().toString());
-        Cookie[] cookies =  request.getCookies();
         if(session.getAttribute("loginError")!=null) {
             if (session.getAttribute("loginError").equals("successfully registered!")
                     || session.getAttribute("loginError").equals("successfully logged in!")) {
                 model.addAttribute("loginError", session.getAttribute("loginError"));
             }
         }
-        String login = "";
-        if(cookies!=null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("loggedIn")) {
-                    login = cookie.getValue();
-                    model.addAttribute("loggedIn",
-                            login);
-                    break;
-                } else model.addAttribute("loggedIn", "not logged in");
-            }
-        }
+        String login = getLoginFromCookies(request);
+        if(login.equals("")) model.addAttribute("loggedIn", "not logged in");
+        else model.addAttribute("loggedIn", login);
         if(userToDoService.getTodos(login)!=null&&!userToDoService.getTodos(login).equals("")) {
             model.addAttribute("todosList", todosService.getTodosList(login));
         }
@@ -195,15 +186,7 @@ public class HelloController {
     @PostMapping("todos/add")
     public String addTodos(@RequestParam("todo-text")String text, @RequestParam("todo-date")String date,
                            HttpServletRequest request){
-        Cookie[] cookies =  request.getCookies();
-        String login = "";
-        if(cookies!=null){
-            for(Cookie cookie : cookies){
-                if(cookie.getName().equals("loggedIn")) {
-                    login = cookie.getValue();
-                }
-            }
-        } else return "redirect:/todos";
+        String login = getLoginFromCookies(request);
         if(login.equals("")) return "redirect:/todos";
         UserToDoList userToDoList = userToDoService.findById(login);
         if(date.equals("")) date = "No date";
@@ -214,6 +197,14 @@ public class HelloController {
     }
     @PostMapping("todos/delete")
     public String deleteTodo(@RequestParam("currentTodoText")String text, HttpServletRequest request){
+        String login = getLoginFromCookies(request);
+        UserToDoList userToDoList = userToDoService.findById(login);
+        String newString = userToDoList.getTodos().replace(text, "");
+        userToDoList.setTodos(newString);
+        userToDoService.updateUser(userToDoList);
+        return "redirect:/todos";
+    }
+    public String getLoginFromCookies(HttpServletRequest request){
         Cookie[] cookies =  request.getCookies();
         String login = "";
         if(cookies!=null){
@@ -222,11 +213,7 @@ public class HelloController {
                     login = cookie.getValue();
                 }
             }
-        } else return "redirect:/todos";
-        UserToDoList userToDoList = userToDoService.findById(login);
-        String newString = userToDoList.getTodos().replace(text, "");
-        userToDoList.setTodos(newString);
-        userToDoService.updateUser(userToDoList);
-        return "redirect:/todos";
+        }
+        return login;
     }
 }
